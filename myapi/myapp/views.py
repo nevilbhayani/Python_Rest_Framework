@@ -1,7 +1,6 @@
 from django.shortcuts import render
 from rest_framework.response import Response
 from rest_framework.views import APIView
-
 from .models import *
 from .serializer import *
 
@@ -15,9 +14,7 @@ class BlogApi(APIView):
     
     
     def post(self,request):
-
         ser_data =  BlogSerializer(data=request.data)
-       
         if not ser_data.is_valid():
           return Response({"message":"something went wrong","errors":ser_data.errors})
         ser_data.save()
@@ -34,7 +31,6 @@ class BlogApi(APIView):
             ser_data.save()
             return Response({"userdata":ser_data.data,"message":"todo updated"})
         except Exception as e:
-            print(e)
             return Response({"msg":"id not fond"})
         
     def delete(self,request):
